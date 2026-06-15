@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Placar de Baralho</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="table-felt">
+
+    <header class="header">
+      <div class="suit-row">♠ ♥ ♦ ♣</div>
+      <h1 class="title">Placar de Baralho</h1>
+      <p class="subtitle">Quem está ganhando hoje?</p>
+      <p class="subtitle">Ver se o meu amor (IARA) para de me enrolar</p>
+    </header>
+
+    <main class="scoreboard">
+
+      <div class="card player-card" id="card-p1">
+        <div class="card-corner top-left">
+          <span class="corner-num" id="score-tl-p1">0</span>
+          <span class="corner-suit red">♥</span>
+        </div>
+        <div class="card-body">
+          <div class="player-suit red">♥</div>
+          <div class="player-name-wrap">
+            <span class="player-label">Jogador 1</span>
+            <input class="player-name" id="name-p1" type="text" value="Você" maxlength="12" />
+          </div>
+          <div class="score-display" id="score-p1">0</div>
+          <div class="score-label">vitórias</div>
+          <div class="btn-group">
+            <button class="btn btn-add" onclick="changeScore('p1', 1)">+ Vitória</button>
+            <button class="btn btn-sub" onclick="changeScore('p1', -1)">− Desfazer</button>
+          </div>
+        </div>
+        <div class="card-corner bottom-right">
+          <span class="corner-suit red">♥</span>
+          <span class="corner-num" id="score-br-p1">0</span>
+        </div>
+        <div class="winner-badge" id="badge-p1">👑 Líder</div>
+      </div>
+
+      <!-- VS -->
+      <div class="vs-col">
+        <div class="vs-circle">VS</div>
+        <div class="round-info">
+          <span class="round-label">Partidas</span>
+          <span class="round-count" id="total-rounds">0</span>
+        </div>
+      </div>
+
+      <div class="card player-card" id="card-p2">
+        <div class="card-corner top-left">
+          <span class="corner-num" id="score-tl-p2">0</span>
+          <span class="corner-suit black">♠</span>
+        </div>
+        <div class="card-body">
+          <div class="player-suit black">♠</div>
+          <div class="player-name-wrap">
+            <span class="player-label">Jogador 2</span>
+            <input class="player-name" id="name-p2" type="text" value="Namorada" maxlength="12" />
+          </div>
+          <div class="score-display" id="score-p2">0</div>
+          <div class="score-label">vitórias</div>
+          <div class="btn-group">
+            <button class="btn btn-add" onclick="changeScore('p2', 1)">+ Vitória</button>
+            <button class="btn btn-sub" onclick="changeScore('p2', -1)">− Desfazer</button>
+          </div>
+        </div>
+        <div class="card-corner bottom-right">
+          <span class="corner-suit black">♠</span>
+          <span class="corner-num" id="score-br-p2">0</span>
+        </div>
+        <div class="winner-badge" id="badge-p2">👑 Líder</div>
+      </div>
+
+    </main>
+
+    <section class="history-section">
+      <h2 class="history-title">♣ Histórico de Partidas</h2>
+      <ul class="history-list" id="history-list">
+        <li class="history-empty">Nenhuma partida registrada ainda.</li>
+      </ul>
+    </section>
+
+    <div class="actions">
+      <button class="btn btn-reset" onclick="resetScores()">↺ Zerar Placar</button>
+      <button class="btn btn-end" onclick="endGame()">⬛ Encerrar Jogo</button>
+    </div>
+
+    <footer class="footer">♦ ♣ ♥ ♠</footer>
+
+  </div>
+
+  <div class="modal-overlay" id="modal" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-suit">🏆</div>
+      <h2 class="modal-title" id="modal-title">Jogo Encerrado!</h2>
+      <p class="modal-body" id="modal-body"></p>
+      <div class="modal-actions">
+        <button class="btn btn-add" onclick="newGame()">🃏 Novo Jogo</button>
+        <button class="btn btn-sub" onclick="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="placar.js"></script>
+</body>
+</html>

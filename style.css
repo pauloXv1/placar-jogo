@@ -1,0 +1,464 @@
+:root {
+  --felt:       #1a472a;
+  --felt-light: #22593a;
+  --gold:       #c9a84c;
+  --gold-light: #e8c96d;
+  --cream:      #f5f0e8;
+  --card-bg:    #fffdf8;
+  --red-suit:   #8b1a1a;
+  --black-suit: #1a1a2e;
+  --shadow:     rgba(0, 0, 0, 0.45);
+  --radius:     16px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--felt);
+  min-height: 100vh;
+  color: var(--cream);
+}
+
+/* ── Felt table background texture ── */
+.table-felt {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at center, var(--felt-light) 0%, var(--felt) 70%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 4px,
+      rgba(255,255,255,0.015) 4px,
+      rgba(255,255,255,0.015) 5px
+    );
+  padding: 2rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+}
+
+.suit-row {
+  font-size: 1.4rem;
+  letter-spacing: 0.6rem;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 900;
+  color: var(--gold);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  letter-spacing: 0.04em;
+}
+
+.subtitle {
+  color: rgba(245, 240, 232, 0.6);
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Scoreboard layout ── */
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 860px;
+}
+
+.player-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  width: 280px;
+  min-height: 380px;
+  position: relative;
+  box-shadow:
+    0 8px 32px var(--shadow),
+    0 0 0 3px var(--gold),
+    inset 0 0 0 1px rgba(201,168,76,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.player-card:hover {
+  transform: translateY(-4px) rotate(0.5deg);
+  box-shadow:
+    0 16px 48px var(--shadow),
+    0 0 0 3px var(--gold-light),
+    inset 0 0 0 1px rgba(201,168,76,0.3);
+}
+
+.player-card.leading {
+  box-shadow:
+    0 8px 32px var(--shadow),
+    0 0 0 3px var(--gold-light),
+    0 0 24px rgba(201, 168, 76, 0.4),
+    inset 0 0 0 1px rgba(201,168,76,0.3);
+}
+
+.card-corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  font-family: 'Playfair Display', serif;
+}
+
+.card-corner.top-left  { top: 10px; left: 12px; }
+.card-corner.bottom-right {
+  bottom: 10px;
+  right: 12px;
+  transform: rotate(180deg);
+}
+
+.corner-num {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--black-suit);
+}
+
+.corner-suit {
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
+.corner-suit.red   { color: var(--red-suit); }
+.corner-suit.black { color: var(--black-suit); }
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem 1.5rem;
+  height: 100%;
+}
+
+.player-suit {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.player-suit.red   { color: var(--red-suit); }
+.player-suit.black { color: var(--black-suit); }
+
+/* ── Name input ── */
+.player-name-wrap {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.player-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(26,26,46,0.4);
+  margin-bottom: 2px;
+}
+
+.player-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--black-suit);
+  border: none;
+  border-bottom: 2px dashed rgba(26,26,46,0.15);
+  background: transparent;
+  text-align: center;
+  width: 180px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.player-name:focus {
+  border-bottom-color: var(--gold);
+}
+
+.score-display {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--black-suit);
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.score-display.pop {
+  transform: scale(1.25);
+}
+
+.score-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(26,26,46,0.4);
+  margin-bottom: 1.5rem;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.btn {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+}
+
+.btn:hover  { filter: brightness(1.1); }
+.btn:active { transform: scale(0.97); }
+
+.btn-add {
+  background: var(--felt);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+}
+
+.btn-sub {
+  background: transparent;
+  color: rgba(26,26,46,0.5);
+  border: 1px solid rgba(26,26,46,0.2);
+  font-size: 0.78rem;
+}
+
+.winner-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  background: var(--gold);
+  color: var(--black-suit);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  display: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.player-card.leading .winner-badge {
+  display: block;
+}
+
+.vs-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.vs-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--gold);
+  background: rgba(0,0,0,0.25);
+  box-shadow: 0 0 16px rgba(201,168,76,0.3);
+}
+
+.round-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+}
+
+.round-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+.round-count {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.1;
+}
+
+.history-section {
+  width: 100%;
+  max-width: 620px;
+}
+
+.history-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.history-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) transparent;
+}
+
+.history-list li {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: rgba(245,240,232,0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-empty {
+  text-align: center;
+  color: rgba(245,240,232,0.35) !important;
+  font-style: italic;
+  justify-content: center !important;
+}
+
+.history-time {
+  font-size: 0.7rem;
+  color: rgba(245,240,232,0.35);
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-reset {
+  background: rgba(0,0,0,0.3);
+  color: var(--cream);
+  border: 1px solid rgba(245,240,232,0.25);
+}
+
+.btn-end {
+  background: #6b1a1a;
+  color: var(--cream);
+  border: 2px solid #8b2a2a;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+}
+
+/* ── Footer ── */
+.footer {
+  color: rgba(201,168,76,0.3);
+  font-size: 1.2rem;
+  letter-spacing: 0.8rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.modal-box {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow:
+    0 16px 64px rgba(0,0,0,0.6),
+    0 0 0 3px var(--gold);
+}
+
+.modal-suit {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--black-suit);
+  margin-bottom: 0.8rem;
+}
+
+.modal-body {
+  color: rgba(26,26,46,0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+@media (max-width: 680px) {
+  .scoreboard {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vs-col {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+
+  .player-card {
+    width: 100%;
+    max-width: 320px;
+    min-height: auto;
+  }
+}
