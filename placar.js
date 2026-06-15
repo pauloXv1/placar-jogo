@@ -13,8 +13,8 @@ function loadState() {
       state.p2.score = data.p2?.score ?? 0;
       state.history = data.history ?? [];
 
-      document.getElementById('name-p1').value = data.name1 ?? 'Você';
-      document.getElementById('name-p2').value = data.name2 ?? 'Namorada';
+      document.getElementById('name-p1').value = data.name1 ?? 'paulo habilidoso';
+      document.getElementById('name-p2').value = data.name2 ?? 'iara sortuda';
     }
   } catch (e) {
     console.warn('Erro ao carregar placar salvo.');
